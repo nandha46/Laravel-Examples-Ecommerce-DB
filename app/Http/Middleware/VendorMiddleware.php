@@ -10,7 +10,7 @@ class VendorMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->hasRole(['vendor', 'vendor manager'])) {
+        if (!auth()->check() || !auth()->user()->hasRole(['vendor', 'vendor manager'])) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
